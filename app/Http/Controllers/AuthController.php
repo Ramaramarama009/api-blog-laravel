@@ -42,7 +42,7 @@ class AuthController extends Controller
             'name' => request('name'),
             'email' => request('email'),
             'password' => bcrypt(request('password')),
-            'profile' => request('profile')
+            'profile' => request('profile')->store('uploads/images')
         ]);
 
         return response()->json([
