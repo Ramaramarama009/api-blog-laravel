@@ -6,14 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use Exception;
 
 class AuthController extends Controller
 {
     public function login (Request $request)
     {
-        try {
-            $user = User::where('email', request('email'))->first();
+        $user = User::where('email', request('email'))->first();
 
         if($user){          
             if(Hash::check(request('password'), $user->password)){
@@ -36,11 +34,5 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Tidak ada akun dengan email ' . request('email'),
         ], 401);
-        } catch (Exception $err) {
-
-            return response()->json([
-                'message' => $err
-            ],500);
-        }
     }
 }
