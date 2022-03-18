@@ -35,4 +35,19 @@ class AuthController extends Controller
             'message' => 'Tidak ada akun dengan email ' . request('email'),
         ], 401);
     }
+
+    public function register ()
+    {
+        $user = User::create([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => bcrypt(request('password')),
+            'profile' => request('profile')
+        ]);
+
+        return response()->json([
+            'message' => 'success',
+            'data' => $user
+        ]);
+    }
 }
